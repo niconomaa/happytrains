@@ -1,4 +1,5 @@
 import json
+import csv
 from graphqlclient import GraphQLClient
 
 client = GraphQLClient('https://api.graph.cool/simple/v1/ciw9brm021bfh0171mp8tiric')
@@ -56,10 +57,11 @@ for trainline in all_trainlines:
     # People are saying the following things about {}
     # """.format(trainline["name"]))
     overview[trainline["name"]] = {}
-    overview[trainline["name"]]["avgSadness"] = trainline["avgSadness"]
-    overview[trainline["name"]]["avgFear"] = trainline["avgFear"]
-    overview[trainline["name"]]["avgDisgust"] = trainline["avgDisgust"]
-    overview[trainline["name"]]["avgJoy"] = trainline["avgJoy"]
+    overview[trainline["name"]]["avgSadness"] = trainline["avgSadness"] * 100
+    overview[trainline["name"]]["avgFear"] = trainline["avgFear"] * 100 
+    overview[trainline["name"]]["avgDisgust"] = trainline["avgDisgust"] * 100
+    overview[trainline["name"]]["avgJoy"] = trainline["avgJoy"] * 100
+    overview[trainline["name"]]["avgAnger"] = trainline["avgAnger"] * 100
     overview[trainline["name"]]["answers"] = []
     for answer in all_answers:
         if(answer["trainline"]["name"] == trainline["name"]):
@@ -71,5 +73,7 @@ for key, val in overview.items():
 
 # write all  analysis to a json file
 
-with open('data.js', 'w') as outfile:
-    json.dump(overview, outfile)
+with open('traindata.csv', 'wb') as f:
+    w = csv.DictWriter(f, overview.keys())
+    w.writeheader()
+    w.writerow(overview)
