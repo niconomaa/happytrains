@@ -1,5 +1,6 @@
 import json
 from graphqlclient import GraphQLClient
+import csv
 
 client = GraphQLClient('https://api.graph.cool/simple/v1/ciw9brm021bfh0171mp8tiric')
 
@@ -69,7 +70,7 @@ for trainline in all_trainlines:
 for key, val in overview.items():
     print(key,val)
 
-# write all  analysis to a json file
-
-with open('data.js', 'w') as outfile:
-    json.dump(overview, outfile)
+with open('traindata.csv', 'wb') as f:
+    w = csv.DictWriter(f, overview.keys())
+    w.writeheader()
+    w.writerow(overview)
