@@ -17,8 +17,9 @@ def read_csv(file, json_file, format):
 def write_json(data, json_file, format):
     with open(json_file, "w") as f:
         if format == "pretty":
+            f.write("traindata=")
             f.write(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': '),encoding="utf-8",ensure_ascii=False))
         else:
             f.write(json.dumps(data))
 
-read_csv("traindata.csv", "traindata.json", "pretty")
+read_csv("traindata.csv", "traindata.js", "pretty")
