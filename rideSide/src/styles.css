@@ -1,0 +1,66 @@
+.outer-container {
+
+}
+
+.inner-container {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+}
+
+.inner-container img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.inner-container .trainline-name {
+  align-self: center;
+  flex: 1 0 auto;
+  text-align: left;
+}
+
+.inner-container .expand-feedback {
+  align-self: center;
+}
+
+.heart {
+  width: 25px;
+  height: auto;
+  position: relative;
+  top: 5px;
+}
+
+.feedback-box {
+  text-align: left;
+}
+
+.topic-radios label {
+  display: block;
+}
+
+feed {
+  width: 100%;
+}
+
+feed * {
+  font-family: 'Roboto', sans-serif;
+}
+
+.reward {
+  margin: 20px 40px;
+}
+
+.banner {
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  background-color: #495458;
+  height: 60px;
+  box-shadow: 0px 2px 5px 0 rgba(1, 1, 1, 0.4);
+  margin-bottom: 20px;
+}
+
+.fa-bars {
+  margin: 20px;
+}
