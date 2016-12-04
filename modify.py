@@ -28,7 +28,7 @@ for all_trainlines in trainlines_and_answers:
 	sentiment_Avg = {"avgAnger": 0, "avgDisgust": 0, "avgFear": 0, "avgJoy": 0, "avgSadness": 0}
 	for answer in all_trainlines["answers"]:
 		number_of_answers += 1
-		sentiment_Avg["avgAnger"] += answer["anger"]
+		sentiment_Avg["avgAnger"] += answer["anger"] or 0
 		sentiment_Avg["avgDisgust"] += answer["disgust"]
 		sentiment_Avg["avgFear"] += answer["fear"]
 		sentiment_Avg["avgJoy"] += answer["joy"]
