@@ -21,9 +21,9 @@ const AllTrainlinesQuery = gql`
 @Component({
   selector: 'feed',
   template: `
-    <div class="banner"><i class="fa fa-bars" aria-hidden="true"></i>Connection feedback</div>
-    <div class="outer-container ma1 pa1" *ngFor="let trainline of allTrainlines">
-      <a (click)="toggleFeedback(trainline)" class="inner-container bg-black-05 pa2 no-underline">
+    <div class="banner"><i class="fa fa-bars" aria-hidden="true"></i>Connection feedback </div>
+    <div class="outer-container" [ngClass]="{'expanded': trainline.isFeedbackExpanded}" *ngFor="let trainline of allTrainlines">
+      <a (click)="toggleFeedback(trainline)" class="inner-container pa3 no-underline">
         <img [src]="trainline.imageUrl">
         <span class="expand-feedback">
             Feedback 
@@ -32,13 +32,14 @@ const AllTrainlinesQuery = gql`
         </span>
       </a>
       <div class="feedback-box" *ngIf="trainline.isFeedbackExpanded">
-        <div class="topic-radios">
-          <p>I want to give feedback concerning</p>
-          <label for="topic1"><input id="topic1" type="radio" [(ngModel)]=topic value=Crowdedness> Crowdedness</label>
-          <label for="topic2"><input id="topic2" type="radio" [(ngModel)]=topic value=Cleanliness> Cleanliness</label>
-          <label for="topic3"><input id="topic3" type="radio" [(ngModel)]=topic value=General> General</label>
+        <div *ngIf="!trainline.showTextarea" class="topic-buttons">
+          <button (click)="setTopic('Crowdedness', trainline)">Crowdedness</button>
+          <button (click)="setTopic('Cleanliness', trainline)">Cleanliness</button>
+          <button (click)="setTopic('Staff', trainline)">Staff</button>
+          <button (click)="setTopic('Safety', trainline)">Safety</button>
+          <button (click)="setTopic('Other', trainline)">Other</button>
         </div>
-        <div class="feedback-text">
+        <div *ngIf="!!trainline.showTextarea" class="feedback-text">
           <textarea placeholder="Feedback" [(ngModel)]="text" name="text"></textarea>
           <button (click)="sendAnswer(trainline)">
             Send Feedback
@@ -46,7 +47,7 @@ const AllTrainlinesQuery = gql`
         </div>
       </div>
     </div>
-    <p class="reward">Earn a <img class="heart" src="http://berlinspiriert.de/wp-content/uploads/2015/12/bvg-logo.jpg"> for letting us know whether you are enjoying the ride!</p>
+    <p class="reward">Earn <img class="heart" src="http://berlinspiriert.de/wp-content/uploads/2015/12/bvg-logo.jpg">\'s for letting us know whether you are enjoying the ride!</p>
   `,
   host: {'style': 'text-align: center' }
 })
@@ -63,27 +64,17 @@ export class FeedComponent implements OnInit, OnDestroy {
       private apollo: Angular2Apollo
   ) {}
 
-  handleDelete(id: string) {
-    this.apollo.mutate({
-      mutation: gql`
-        mutation ($id: ID!) {
-          deleteTrainline(id: $id) {
-            id
-          }
-        }
-      `,
-      variables: {
-        id: id,
-      },
-    }).toPromise();
-  }
-
   toggleFeedback(trainline) {
-    
+
     if (!trainline.isFeedbackExpanded) {
       this.allTrainlines.forEach((otherTrainline) => {otherTrainline.isFeedbackExpanded = false});
     }
     trainline.isFeedbackExpanded = !trainline.isFeedbackExpanded;
+  }
+
+  setTopic(topic, trainline) {
+    this.topic = topic;
+    trainline.showTextarea = true;
   }
 
   sendAnswer(trainline): void {
@@ -124,6 +115,7 @@ export class FeedComponent implements OnInit, OnDestroy {
       this.allTrainlines.forEach (function(trainline) {
         trainline.isFeedbackExpanded = false;
         trainline.imageUrl = "../assets/Berlin_" + trainline.name + ".svg.png";
+        trainline.showTextarea = false;
       });
     });
   }

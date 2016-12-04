@@ -1,5 +1,14 @@
-.outer-container {
+body {
+  height: 100%;
+}
 
+app-root {
+  height:100%;
+}
+
+.outer-container {
+  border-bottom: 1px solid #eee;
+  background-color: white;
 }
 
 .inner-container {
@@ -7,6 +16,18 @@
   justify-content: space-between;
   padding-right: 20px;
   font-size: 20px;
+}
+
+.outer-container:nth-last-child(2){
+   box-shadow: 0 2px 5px 0 rgba(1, 1, 1, 0.2);
+}
+
+.expanded .inner-container{
+   box-shadow: 0 2px 5px 0 rgba(1, 1, 1, 0.2);
+}
+
+.expanded + .outer-container {
+  box-shadow: 0 -2px 5px 0 rgba(1, 1, 1, 0.2);
 }
 
 .inner-container img {
@@ -36,12 +57,15 @@
   text-align: left;
 }
 
-.topic-radios label {
-  display: block;
+.topic-buttons p {
+  font-size: 20px;
+  margin: 0;
 }
 
 feed {
   width: 100%;
+  height: 100vh;
+  background-color: #F0EFF4;
 }
 
 feed * {
@@ -72,5 +96,23 @@ feed * {
 }
 
 textarea {
-  border: 1px solid #222;
+  background-color: transparent;
+  padding: 4px;
+  margin: 0;
+  margin-top: 3px;
+  width: 100vw;
+  border: 0;
+}
+
+button {
+  width: 100%;
+  display: block;
+  padding: 15px;
+  font-size: 18px;
+  background-color: transparent;
+  box-shadow: none;
+  border-top: 1px solid #eee;
+  border-bottom:none;
+  border-left: none;
+  border-right: none;
 }
