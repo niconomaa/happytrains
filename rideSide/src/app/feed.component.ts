@@ -11,6 +11,7 @@ const AllTrainlinesQuery = gql`
     Ride(id: "ciw9xa2ci2sp40132fytik39j") {
       trainlines {
         name
+        id
       }
       date
     }
@@ -78,6 +79,7 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   toggleFeedback(trainline) {
+    
     if (!trainline.isFeedbackExpanded) {
       this.allTrainlines.forEach((otherTrainline) => {otherTrainline.isFeedbackExpanded = false});
     }
