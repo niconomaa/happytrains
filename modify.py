@@ -29,10 +29,17 @@ for all_trainlines in trainlines_and_answers:
 	for answer in all_trainlines["answers"]:
 		number_of_answers += 1
 		sentiment_Avg["avgAnger"] += answer["anger"] or 0
+<<<<<<< HEAD
 		sentiment_Avg["avgDisgust"] += answer["disgust"] or 0
 		sentiment_Avg["avgFear"] += answer["fear"] or 0
 		sentiment_Avg["avgJoy"] += answer["joy"] or 0
 		sentiment_Avg["avgSadness"] += answer["sadness"] or 0
+=======
+		sentiment_Avg["avgDisgust"] += answer["disgust"]
+		sentiment_Avg["avgFear"] += answer["fear"]
+		sentiment_Avg["avgJoy"] += answer["joy"]
+		sentiment_Avg["avgSadness"] += answer["sadness"]
+>>>>>>> 09cb1ef89f90110b30262053a074e39e23b3bf0d
 	if number_of_answers != 0:
 		for sentiment in sentiment_Avg:
 			sentiment_Avg[sentiment] /= number_of_answers
