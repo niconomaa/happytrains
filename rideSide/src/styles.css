@@ -131,8 +131,16 @@ button {
   color: #888;
 }
 
+.info-bar span:nth-child(2) {
+  width: 130px;
+  text-align: left;
+}
+
 .info-bar span:last-child {
-  font-size: 20px;
   position: relative;
   top: -10px;
+}
+
+.everything-fine a{
+  display: flex;
 }
