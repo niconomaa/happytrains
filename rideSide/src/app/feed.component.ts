@@ -8,9 +8,11 @@ import 'rxjs/add/operator/toPromise';
 
 const AllTrainlinesQuery = gql`
   query allTrainlines {
-    allTrainlines(filter: {isInRide: true}) {
-      name
-      id
+    Ride(id: "ciw9xa2ci2sp40132fytik39j") {
+      trainlines {
+        name
+      }
+      date
     }
   }
 `;
@@ -21,8 +23,7 @@ const AllTrainlinesQuery = gql`
     <div class="banner"><i class="fa fa-bars" aria-hidden="true"></i>Connection feedback</div>
     <div class="outer-container ma1 pa1" *ngFor="let trainline of allTrainlines">
       <a (click)="toggleFeedback(trainline)" class="inner-container bg-black-05 pa2 no-underline">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Ubahnlogo.svg/200px-Ubahnlogo.svg.png">
-        <span class="trainline-name">{{trainline.name}}&nbsp;</span>
+        <img [src]="trainline.imageUrl">
         <span class="expand-feedback">
             Feedback 
             <i *ngIf="!trainline.isFeedbackExpanded" class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -31,7 +32,7 @@ const AllTrainlinesQuery = gql`
       </a>
       <div class="feedback-box" *ngIf="trainline.isFeedbackExpanded">
         <div class="topic-radios">
-          <h3>I want to give feedback concerning</h3>
+          <p>I want to give feedback concerning</p>
           <label for="topic1"><input id="topic1" type="radio" [(ngModel)]=topic value=Crowdedness> Crowdedness</label>
           <label for="topic2"><input id="topic2" type="radio" [(ngModel)]=topic value=Cleanliness> Cleanliness</label>
           <label for="topic3"><input id="topic3" type="radio" [(ngModel)]=topic value=General> General</label>
@@ -116,10 +117,11 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.allTrainlinesSub = this.apollo.watchQuery({
       query: AllTrainlinesQuery
     }).subscribe(({data, loading}) => {
-      this.allTrainlines = data.allTrainlines.reverse();
+      this.allTrainlines = data.Ride.trainlines.reverse();
       this.loading = loading;
       this.allTrainlines.forEach (function(trainline) {
         trainline.isFeedbackExpanded = false;
+        trainline.imageUrl = "../assets/Berlin_" + trainline.name + ".svg.png";
       });
     });
   }

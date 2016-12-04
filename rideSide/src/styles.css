@@ -10,7 +10,7 @@
 }
 
 .inner-container img {
-  width: 30px;
+  width: auto;
   height: 30px;
   margin-right: 10px;
 }
@@ -50,9 +50,10 @@ feed * {
 }
 
 .reward {
-  margin: 20px 40px;
+  margin: 20px 55px;
   font-size: 18px;
   line-height: 1.3em;
+  font-weight: 300;
 }
 
 .banner {
