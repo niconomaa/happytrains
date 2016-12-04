@@ -37,14 +37,14 @@ const AllTrainlinesQuery = gql`
           <label for="topic3"><input id="topic3" type="radio" [(ngModel)]=topic value=General> General</label>
         </div>
         <div class="feedback-text">
-          <textarea id="urlInput" placeholder="Feedback" [(ngModel)]="text" name="text"></textarea>
+          <textarea placeholder="Feedback" [(ngModel)]="text" name="text"></textarea>
           <button (click)="sendAnswer(trainline)">
             Send Feedback
           </button>
         </div>
       </div>
     </div>
-    <h3 class="reward">Earn a <img class="heart" src="http://berlinspiriert.de/wp-content/uploads/2015/12/bvg-logo.jpg"> for letting us know whether you are enjoying the ride!</h3>
+    <p class="reward">Earn a <img class="heart" src="http://berlinspiriert.de/wp-content/uploads/2015/12/bvg-logo.jpg"> for letting us know whether you are enjoying the ride!</p>
   `,
   host: {'style': 'text-align: center' }
 })
