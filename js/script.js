@@ -38,8 +38,6 @@ for (var train in traindata) {
     var barwidth = $(".bar").width();
     var sum_emotions = parseInt(jsontraindata["avgAnger"]) + parseInt(jsontraindata["avgSadness"]) + parseInt(jsontraindata["avgDisgust"]) + parseInt(jsontraindata["avgFear"]) + parseInt(jsontraindata["avgJoy"]);
 
-    console.log(sum_emotions);
-    console.log(length_joy);
 
     var length_joy = (parseInt(jsontraindata["avgJoy"]) / sum_emotions) * barwidth;
     $(".bar." + train).find(".joy").width(length_joy);
@@ -74,6 +72,10 @@ for (var train in traindata) {
     $(".barinfo." + train).find(".sadness").css("color","#FFEF7D");
     $(".barinfo." + train).find(".fear").css("color","#091819");
 
+      var rank =  parseInt(jsontraindata["avgJoy"]) * 1000/sum_emotions;
+
+    $(".ubahn." + train).attr("title", parseInt(rank))
+
 
 
     // $(".info").append("<div class=' sentiment joy " + train + "'> Joy <span>" + parseInt(jsontraindata["avgJoy"]) + "%</span></div><br>")
@@ -83,10 +85,15 @@ for (var train in traindata) {
     // $(".info").append("<div class=' sentiment anger " + train + "'> Anger <span>" + parseInt(jsontraindata["avgAnger"]) + "%</span></div><br>")
     $(".info").append("<div class='comments " + train + "'></div><br>")
     for(var i = 0; i < jsontraindata["answers"].length; i++){
-      $(".comments."+ train).append("<p>" + jsontraindata["answers"][i] + "</p>")
+      if( $(".comments." + train).find("." + jsontraindata["answers"][i][1]).length == 0 ){
+        $(".comments."+ train).append("<p class='section " + jsontraindata["answers"][i][1] + "'> " + jsontraindata["answers"][i][1] +"</p>")
+      }
+      $(".comments."+ train).find("." + jsontraindata["answers"][i][1]).append("<p>" + jsontraindata["answers"][i][0 ] + "</p>")
     }
   }
 }
+
+
 
 
 
@@ -118,3 +125,23 @@ $(".commentbutton").click(
 
   }
 )
+
+var order = [];
+
+$(".ubahn").each(function(){
+  order.push(($(this).attr("title")))
+})
+
+
+
+for(var i = 0; i < order.length; i++){
+  console.log(order[i])
+}
+
+console.log("sss");
+order.sort();
+
+// for (var i = 0; i < order.length; i++){
+//   console.log(order[i])
+//   $("[title=" + parseInt(order[i]) + "]").css("order", (i));
+// }

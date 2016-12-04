@@ -17,6 +17,7 @@ all {
 '''
 all_answers = json.loads(client.execute(get_all_answers_query))["data"]["allAnswers"]
 
+
 for answer in all_answers:
     print(answer)
 

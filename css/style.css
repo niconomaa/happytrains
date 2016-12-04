@@ -75,7 +75,7 @@ body{
   height:30px !important;
   width: 60%;
   display: flex;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 .barinfo{
@@ -121,12 +121,19 @@ body{
   height: 200px;
 }
 
-.comments p{
+.comments p p{
   font-size: 1em;
   margin: 10px;
   padding: 5px;
   border-bottom: 1px dashed lightgrey;
+}
 
+.comments .section{
+  font-weight: bold;
+}
+
+.section p{
+  font-weight: normal;
 }
 
 .commentbutton{

@@ -36,6 +36,7 @@ all {
         name
     }
     text
+    topic
   }
 }
 '''
@@ -47,16 +48,7 @@ all_answers = json.loads(client.execute(get_all_answers_query))["data"]["allAnsw
 overview = {}
 
 for trainline in all_trainlines:
-    # print("""
-    # The average joy of people riding on {} is {}%. \n
-    # The average anger of people riding on {} is {}%. \n\n
-    # """.format(
-    # trainline["name"], float(trainline["avgJoy"]) * 100,
-    # trainline["name"], float(trainline["avgAnger"]) * 100,
-    # ))
-    # print("""
-    # People are saying the following things about {}
-    # """.format(trainline["name"]))
+
     overview[trainline["name"]] = {}
     overview[trainline["name"]]["avgSadness"] = trainline["avgSadness"] * 100
     overview[trainline["name"]]["avgFear"] = trainline["avgFear"] * 100
@@ -67,7 +59,7 @@ for trainline in all_trainlines:
     for answer in all_answers:
         if(answer["trainline"]["name"] == trainline["name"]):
             # print(answer["text"] + "\n")
-            overview[trainline["name"]]["answers"].append(answer["text"])
+            overview[trainline["name"]]["answers"].append([answer["text"], answer["topic"]])
 
 for key, val in overview.items():
     print(key,val)
