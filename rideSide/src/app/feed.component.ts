@@ -22,28 +22,34 @@ const AllTrainlinesQuery = gql`
   selector: 'feed',
   template: `
     <div class="banner"><i class="fa fa-bars" aria-hidden="true"></i>Connection feedback </div>
-    <div class="outer-container" [ngClass]="{'expanded': trainline.isFeedbackExpanded}" *ngFor="let trainline of allTrainlines">
-      <a (click)="toggleFeedback(trainline)" class="inner-container pa3 no-underline">
-        <img [src]="trainline.imageUrl">
-        <span class="expand-feedback">
-            Feedback 
-            <i *ngIf="!trainline.isFeedbackExpanded" class="fa fa-chevron-down" aria-hidden="true"></i>
-            <i *ngIf="trainline.isFeedbackExpanded" class="fa fa-chevron-up" aria-hidden="true"></i>
-        </span>
-      </a>
-      <div class="feedback-box" *ngIf="trainline.isFeedbackExpanded">
-        <div *ngIf="!trainline.showTextarea" class="topic-buttons">
-          <button (click)="setTopic('Crowdedness', trainline)">Crowdedness</button>
-          <button (click)="setTopic('Cleanliness', trainline)">Cleanliness</button>
-          <button (click)="setTopic('Staff', trainline)">Staff</button>
-          <button (click)="setTopic('Safety', trainline)">Safety</button>
-          <button (click)="setTopic('Other', trainline)">Other</button>
-        </div>
-        <div *ngIf="!!trainline.showTextarea" class="feedback-text">
-          <textarea placeholder="Feedback" [(ngModel)]="text" name="text"></textarea>
-          <button (click)="sendAnswer(trainline)">
-            Send Feedback
-          </button>
+    <div class="info-bar">
+      <span>{{ride?.date.substr(0, 10)}}</span>
+      <span>{{hearts}} <img class="heart" src="http://berlinspiriert.de/wp-content/uploads/2015/12/bvg-logo.jpg"></span>
+    </div>
+    <div class="outermost" *ngFor="let trainline of allTrainlines" [ngClass]="{'expanded': trainline.isFeedbackExpanded}">
+      <div class="outer-container" *ngIf="trainline.showTrainline">
+        <a (click)="toggleFeedback(trainline)" class="inner-container pa3 no-underline">
+          <img [src]="trainline.imageUrl">
+          <span class="expand-feedback">
+              Feedback 
+              <i *ngIf="!trainline.isFeedbackExpanded" class="fa fa-chevron-down" aria-hidden="true"></i>
+              <i *ngIf="trainline.isFeedbackExpanded" class="fa fa-chevron-up" aria-hidden="true"></i>
+          </span>
+        </a>
+        <div class="feedback-box" *ngIf="trainline.isFeedbackExpanded">
+          <div *ngIf="!trainline.showTextarea" class="topic-buttons">
+            <button (click)="setTopic('Crowdedness', trainline)">Crowdedness</button>
+            <button (click)="setTopic('Cleanliness', trainline)">Cleanliness</button>
+            <button (click)="setTopic('Staff', trainline)">Staff</button>
+            <button (click)="setTopic('Safety', trainline)">Safety</button>
+            <button (click)="setTopic('Other', trainline)">Other</button>
+          </div>
+          <div *ngIf="!!trainline.showTextarea" class="feedback-text">
+            <textarea placeholder="Feedback" [(ngModel)]="text" name="text"></textarea>
+            <button (click)="sendAnswer(trainline)">
+              Send Feedback
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,9 +62,12 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
   allTrainlines: any;
+  ride: any;
   allTrainlinesSub: Subscription;
   topic: string;
   text: string;
+  hearts: number = 0;
+  day: any;
 
   constructor(
       private apollo: Angular2Apollo
@@ -80,10 +89,10 @@ export class FeedComponent implements OnInit, OnDestroy {
   sendAnswer(trainline): void {
 
     this.toggleFeedback(trainline);
+    trainline.showTrainline = false;
+    this.hearts = this.hearts + 3;
 
     console.log(trainline);
-    console.log(this.topic);
-    console.log(this.text);
 
     this.apollo.mutate({
       mutation: gql`
@@ -110,12 +119,14 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.allTrainlinesSub = this.apollo.watchQuery({
       query: AllTrainlinesQuery
     }).subscribe(({data, loading}) => {
+      this.ride = data.Ride;
       this.allTrainlines = data.Ride.trainlines.reverse();
       this.loading = loading;
       this.allTrainlines.forEach (function(trainline) {
         trainline.isFeedbackExpanded = false;
         trainline.imageUrl = "../assets/Berlin_" + trainline.name + ".svg.png";
         trainline.showTextarea = false;
+        trainline.showTrainline = true;
       });
     });
   }

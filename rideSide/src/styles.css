@@ -18,7 +18,7 @@ app-root {
   font-size: 20px;
 }
 
-.outer-container:nth-last-child(2){
+.outermost:nth-last-child(2) {
    box-shadow: 0 2px 5px 0 rgba(1, 1, 1, 0.2);
 }
 
@@ -26,7 +26,7 @@ app-root {
    box-shadow: 0 2px 5px 0 rgba(1, 1, 1, 0.2);
 }
 
-.expanded + .outer-container {
+.expanded + .outermost {
   box-shadow: 0 -2px 5px 0 rgba(1, 1, 1, 0.2);
 }
 
@@ -104,6 +104,10 @@ textarea {
   border: 0;
 }
 
+textarea:focus {
+  outline: none;
+}
+
 button {
   width: 100%;
   display: block;
@@ -115,4 +119,20 @@ button {
   border-bottom:none;
   border-left: none;
   border-right: none;
+}
+
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 15px 5px;
+}
+
+.info-bar span:first-child {
+  color: #888;
+}
+
+.info-bar span:last-child {
+  font-size: 20px;
+  position: relative;
+  top: -10px;
 }
