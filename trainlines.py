@@ -1,6 +1,7 @@
 import json
 import csv
 from graphqlclient import GraphQLClient
+import csv
 
 client = GraphQLClient('https://api.graph.cool/simple/v1/ciw9brm021bfh0171mp8tiric')
 
@@ -58,7 +59,7 @@ for trainline in all_trainlines:
     # """.format(trainline["name"]))
     overview[trainline["name"]] = {}
     overview[trainline["name"]]["avgSadness"] = trainline["avgSadness"] * 100
-    overview[trainline["name"]]["avgFear"] = trainline["avgFear"] * 100 
+    overview[trainline["name"]]["avgFear"] = trainline["avgFear"] * 100
     overview[trainline["name"]]["avgDisgust"] = trainline["avgDisgust"] * 100
     overview[trainline["name"]]["avgJoy"] = trainline["avgJoy"] * 100
     overview[trainline["name"]]["avgAnger"] = trainline["avgAnger"] * 100
@@ -70,6 +71,7 @@ for trainline in all_trainlines:
 
 for key, val in overview.items():
     print(key,val)
+
 
 # write all  analysis to a json file
 
