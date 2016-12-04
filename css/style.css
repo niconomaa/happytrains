@@ -1,10 +1,24 @@
 * {
   font-family: 'Open Sans', sans-serif;
+  text-align: center;
+}
+
+body{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background: white;
 }
 
 .title{
   text-align: center;
   font-family: 'Open Sans', sans-serif;
+}
+
+.headimage{
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+
 }
 
 .content{
@@ -13,22 +27,110 @@
   justify-content: center;
 }
 
+.info,
+.select{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+.info span{
+  font-size: 1.8em;
+}
+
 .ubahn{
-  display: block;
-  min-width: 700px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px;
+  border-radius: 5px;
+
+}
+
+.ubahn:hover{
+  opacity: 0.7;
 }
 
 .ubahn img{
-  width: 200px;
+  width: 180px;
+  border: 5px solid green;
+
+}
+
+
+.sentiment{
+  font-size: 2em;
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+}
+
+
+.endangered{
+  border: 5px solid red!important;
+}
+
+.bar{
+  height:30px !important;
+  width: 60%;
+  display: flex;
+  border: 1px solid black;
+}
+
+.barinfo{
+  height:80px !important;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
 }
 
 
 
-.sentiment{
-  font-size: 1.5em;
-  color: darkgrey;
+
+.bar .joy{
+  width: 20px;
+  background: #C6FFA3;
+}
+
+.bar .fear{
+  background: #091819
+}
+
+.bar .sadness{
+  background: #FFEF7D;
+}
+
+.bar .disgust{
+  background: #FF63B9;
+}
+
+.bar .anger{
+  background: #B23479;
+}
+
+.barinfo p{
+}
+
+.deselected{
+  opacity: 0.2;
+}
+
+.comments{
+  width: 80%;
+  height: 200px;
+}
+
+.comments p{
+  font-size: 1em;
+  margin: 10px;
+  padding: 5px;
+  border-bottom: 1px dashed lightgrey;
+
+}
+
+.commentbutton{
   width: 100%;
+  font-size: 1.4em;
+  cursor: pointer;
 }

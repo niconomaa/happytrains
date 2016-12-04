@@ -1,2 +1,2 @@
 #!/bin/sh
-watch -n 60 python execall.py
+while :; do clear; python execall.py; sleep 30; done
